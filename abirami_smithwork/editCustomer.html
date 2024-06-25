@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Abirami CRM</title>
+    <style>
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
+      </style>
+  </head>
+
+
+
+  <header class="py-3 shadow">
+    <div class="container-fluid align-items-center d-flex text-light">
+        <div class="flex-shrink-1">
+          <a href="view.html"><button type="button" class="btn i-btn" @click="sendEmail">
+            <i class="fas fa-envelope"></i>Home
+          </button></a>
+        </div>
+        <div class="flex-grow-1 d-flex align-items-center">
+            <div class="w-100 me-3">
+                <h3 class="text-center text-3xl font-bold">Abirami-Address Book</h3>
+            </div>
+            <div class="flex-shrink-0 dropdown">
+                <a href="#" class="d-flex link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://via.placeholder.com/28?text=!" alt="user" width="32" height="32" class="rounded-circle">
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+  <div class="p-3 border-0" id="app">
+    <div class="mb-3">
+      <h2 style="text-align: center;"></h2>
+    </div>
+    <form @submit.prevent="saveData">
+      <div class="row mb-3 text-light">
+      
+
+        <div class="col-md-2">
+          <label for="gender" class="form-label">Title</label>
+          <select class="form-control in-drop" id="optradio" name="optradio" v-model="customer.optradio">
+            <option value="" disabled>select</option>
+            <option value="mr">Mr.</option>
+            <option value="ms">Ms.</option>
+            <option value="m/s">M/s</option>
+            <option value="mrs">Mrs.</option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <label for="name" class="form-label">Given Name<span style = "color: red;">*</span></label>
+          <input type="text" class="form-control input" id="name" v-model="customer.name" ref="nameInput">
+        </div>
+        <div class="col-md-2">
+          <label for="name_s" class="form-label">Initials/Last Name</label>
+          <input type="text" class="form-control input" id="name_s" v-model="customer.name_s">
+        </div>
+    
+        <div class="col-md-2">
+          <label for="gender" class="form-label">Gender</label>
+          <select class="form-control in-drop" id="gender" v-model="customer.gender">
+            <option value="">select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label for="phone" class="form-label">Mobile No<span style = "color: red;">*</span></label>
+          <input type="tel" class="form-control input" oninput="this.value = this.value.replace(/[^0-9+()]/g, '');" id="phone" v-model="customer.phone" ref="phoneInput" ng-model="ticketPin" pattern="[0-9]*" maxlength="10">
+        
+        </div>
+
+        <div class="col-md-2">
+          <label for="phone_s" class="form-label">Whatsapp No</label>
+          <input type="tel" class="form-control input" oninput="this.value = this.value.replace(/[^0-9+()]/g, '');" id="phone_s" v-model="customer.phone_s" ng-model="ticketPin" pattern="[0-9]*" maxlength="10">
+        </div>
+      </div>
+      <div class="row mb-3 text-light">
+
+        <div class="col-md-2">
+          <label for="landline_no" class="form-label">Landline No</label>
+          <input type="tel" class="form-control input" id="country_s" oninput="this.value = this.value.replace(/[^0-9+()]/g, '');" v-model="customer.country_s" ng-model="ticketPin" pattern="[0-9]*" maxlength="10">
+        </div>
+        <div class="col-md-2">
+          <label for="occupation" class="form-label">Occupation</label>
+          <input type="text" class="form-control input" id="region" v-model="customer.region">
+        </div>
+        
+      
+
+
+        <div class="col-md-2">
+          <label for="category" class="form-label">Category</label>
+          <select class="form-control in-drop" id="category" v-model="customer.category" ref="categoryInput">
+            <option value="0" disabled>Select a Category</option>
+            <option v-for="category in customerCategories" :key="category.value" :value="category.id">{{ category.title }}</option>
+          </select>
+        </div>
+        
+        <div class="col-md-2">
+          <label for="country" class="form-label">Nationality</label>
+          <select class="form-select in-drop" id="country" v-model="customer.country">
+            <option value="" disabled>Select Nationality</option>
+            <option v-for="country in countries" :key="country.name.common" :value="country.name.common">
+              {{ country.name.common }}
+            </option>
+          </select>
+        </div>
+        
+
+        <div class="col-md-2">
+          <label for="company" class="form-label">D.O.B</label>
+          <input type="date" class="form-control input" id="discount_c" v-model="customer.discount_c">
+        </div>
+        <div class="col-md-2 mb-3">
+          <label for="company" class="form-label">Company Name<span style = "color: red;">*</span></label>
+          <input type="text" class="form-control input" id="company" v-model="customer.company" ref="companyInput">
+        </div>
+        </div>
+        <div class="row mb-3 text-light">
+
+        <div class="col-md-2">
+          <label for="company" class="form-label">Qualification</label>
+          <input type="text" class="form-control input" id="qualification" v-model="customer.qualification">
+        </div>
+        
+        <div class="col-md-2">
+          <label for="company" class="form-label">Spouse Name</label>
+          <input type="text" class="form-control input" id="spouse" v-model="customer.spouse">
+        </div>
+        
+        <div class="col-md-8 text-light" style="margin-bottom: 20px;">
+          <label for="company_address" class="form-label">Notes:</label>&nbsp;&nbsp;&nbsp;
+          <input type="text" class="form-control input" id="company_address" v-model="customer.region_s">
+            </div>
+       </div>
+        
+        
+
+
+
+
+        <div class="row mb-3 text-light">
+          <div class="col-md-6">
+
+        <div class="card text-center">
+          <div class="card-head h1 text-light">
+            Residence
+          </div>
+          <div class="card-body text-light">
+
+            <div class="row mb-3 mt-5">
+              <div class="col-md-6 d-flex justify-content-between">
+                <label for="email" class="form-label">Personal E-Mail ID</label>
+              </div>
+            <div class="col-md-6">
+              <input type="email" class="form-control input" id="email" v-model="customer.email" readonly>
+            </div>
+          </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6 d-flex justify-content-between">
+                <label for="door_no" class="form-label">Door No / Building No/ Apartment Name</label>
+             </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control input" id="door_no" v-model="customer.door_no">
+            </div>
+          </div>
+
+          <div class="row mb-3 text-light">
+            <div class="col-md-6 d-flex justify-content-between">
+              <label for="address" class="form-label">Street Details</label>
+            </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control input" id="address" v-model="customer.address">
+          </div>
+        </div>
+        <div class="row mb-3 text-light">
+          <div class="col-md-6 d-flex justify-content-between">
+            <label for="area" class="form-label">Area / Locality Details</label>
+          </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control input" id="area" v-model="customer.area">
+        </div>
+      </div>
+      <div class="row mb-3">
+    <div class="col-md-6 d-flex justify-content-between">
+          <label for="city" class="form-label">City</label>
+       </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control input" id="city" v-model="customer.city">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6 d-flex justify-content-between">
+        <label for="postbox" class="form-label">Postal</label>
+    </div>
+    <div class="col-md-6">
+      <input type="text" class="form-control input" id="postbox" v-model="customer.postbox">
+    </div>
+  </div>
+          
+        </div>
+        </div>
+        </div>
+        <div class="col-md-6">
+
+          <div class="card text-center">
+            <div class="card-head h1 text-light">
+              Occupation's Location
+            </div>
+
+            <div class="card-body text-light">
+                <div class="col-md-3 d-flex justify-content-around text-light">
+                  
+                   <input class="form-check-input" type="checkbox" value="" v-model="customer.sameAsResidence" @change="handleSameAsResidence" id="showcompanyCheckbox">
+                   <label class="form-check-label" for="flexCheckChecked">
+                    Same as Residence
+                   </label>
+                 </div>
+
+            
+
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-md-6 d-flex justify-content-between">
+                  <label for="email" class="form-label">Official E-Mail ID</label>
+                </div>
+              <div class="col-md-6">
+                <input type="email" class="form-control input" id="email" v-model="customer.email_s" readonly> 
+              </div>
+            </div>
+  
+              <div class="row mb-3">
+                <div class="col-md-6 d-flex justify-content-between">
+                  <label for="door_no_s" class="form-label">Door No / Building No/ Apartment Name</label>
+               </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control input" id="door_no_s" v-model="customer.door_no_s">
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-md-6 d-flex justify-content-between">
+                <label for="address" class="form-label">Street Details</label>
+              </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control input" id="address" v-model="customer.address_s">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6 d-flex justify-content-between">
+              <label for="area_s" class="form-label">Area / Locality Details</label>
+            </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control input" id="area_s" v-model="customer.area_s">
+          </div>
+        </div>
+        <div class="row mb-3">
+      <div class="col-md-6 d-flex justify-content-between">
+            <label for="city" class="form-label">City</label>
+         </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control input" id="city" v-model="customer.city_s">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6 d-flex justify-content-between">
+          <label for="postbox" class="form-label">Postal</label>
+      </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control input" id="postbox" v-model="customer.postbox_s">
+      </div>
+    </div>
+    <input type="hidden" id="ids"  v-model="customer.id">
+            
+          </div>
+          </div>
+          </div>
+       </div>
+       </div>
+
+        <div class="row" style="text-align: center;">
+
+          <div class="col3">
+            <button type="submit" class="btn btn-lg i-btn" :disabled="isSaveButtonDisabled">Save</button>
+          </div>
+        </div>  
+    
+    </form>
+  
+<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      isSaveButtonDisabled: false, // Add a property to track the button's disabled state
+      customerCategories: [],
+      fistname:'',
+      selectedresidence:'',
+      countries: [], // Add a property to store the list of countries
+      customer: {
+        id:'',
+
+        name: '',
+        name_s: '',
+        region_s: '',
+        phone_s: '',
+        country_s: '',
+        door_no: '',
+        address: '',
+        area: '',
+        category: '0',
+        company: '',
+        phone: '',
+        sameAsResidence: false, // Add a property to track whether it should be the same as residence
+        discount_c:'',
+        email: '',
+        gender: '',
+        country: '',
+        occupation: '',
+        city: '',
+        group: '',
+        optradio: '', // Default value for the radio button
+        postbox: '',
+        email_s:'',
+        door_no_s:'',
+        address_s:'',
+        area_s:'',
+        city_s:'',
+        postbox_s:'',
+        region:'',
+        custom1:'',
+        tenant:'abirami',
+
+
+      }
+ },
+    created() {
+    this.saveData1();
+    this.loadCountries(); // Call the method to load the list of countries
+    this.editCustomer(); // Call the method to load the list of countries
+
+  },
+    methods: {
+
+      handleSameAsResidence() {
+      if (this.customer.sameAsResidence) {
+        // Copy values from residence to occupation
+        this.customer.email_s = this.customer.email;
+        this.customer.door_no_s = this.customer.door_no;
+        this.customer.address_s = this.customer.address;
+        this.customer.area_s = this.customer.area;
+        this.customer.city_s = this.customer.city;
+        this.customer.postbox_s = this.customer.postbox;
+      } else {
+        // Reset occupation values if not same as residence
+        this.customer.email_s = '';
+        this.customer.door_no_s = '';
+        this.customer.address_s = '';
+        this.customer.area_s = '';
+        this.customer.city_s = '';
+        this.customer.postbox_s = '';
+      }
+    },
+    loadCountries() {
+      // Fetch the list of countries
+      axios.get('https://restcountries.com/v3.1/all')
+        .then(response => {
+          // Assuming response.data is an array of countries
+          this.countries = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching countries:', error);
+        });
+    },
+
+  saveData() {
+
+    if (!this.customer.name) {
+      console.error('Name is required.');
+      alert('Name is required.');
+      // Focus on the input field with id "nameInput" after displaying the alert
+      this.$nextTick(() => {
+        this.$refs.nameInput.focus();
+      });
+      return;
+    }
+
+    else if (!this.customer.phone) {
+      alert('Mobile No is Required');
+      // Focus on the input field with id "phoneInput" after displaying the alert
+      this.$nextTick(() => {
+        this.$refs.phoneInput.focus();
+      });
+      return;
+    } else if (!this.customer.company) {
+      alert('Company Name is Required');
+      // Focus on the input field with id "companyInput" after displaying the alert
+      this.$nextTick(() => {
+        this.$refs.companyInput.focus();
+      });
+      return;
+    }
+    this.isSaveButtonDisabled = true;
+    this.customer.name = this.customer.optradio + ' ' + this.customer.name;
+
+        const config = {
+          headers: {'Content-Type':'application/x-www-form-urlencoded', 
+            'X-API-KEY': 'ed4876d901b3f0a41e9de1e7' }
+        };
+        console.log(this.customer);
+        axios.post('https://demo.pearlreynolds.xyz/billing/rest/editcustomer', this.customer, config)
+          .then(response => {
+            console.log('Server Response:', response.data);
+                    Swal.fire({
+          icon: "success",
+          title: "Details Add successfully",
+          showConfirmButton: false,
+          timer: 1500
+        }).then((result) => {
+  // Reload the Page
+  window.location.href="view.html";
+});
+
+
+        this.isSaveButtonDisabled = false;
+
+
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            // Handle the error as needed
+            this.isSaveButtonDisabled = false;
+
+          });
+
+
+
+      
+        console.log(this.customer);
+       
+
+
+          
+      },
+      saveData1() {
+
+        const config1 = {
+          headers: {'Content-Type':'application/x-www-form-urlencoded', 
+            'X-API-KEY': 'ed4876d901b3f0a41e9de1e7' }
+
+        };
+
+        axios.get('https://demo.pearlreynolds.xyz/billing/rest/customergroup', config1)
+      .then(response => {
+        // Update the customer category options
+        console.log('Server Response1:', response.data);
+
+        this.customerCategories = response.data; // Assuming response.data is an array of categories
+        // Assuming you have a property named 'customerCategories' in your data
+      })
+      .catch(error => {
+        // Handle the error as needed
+        console.error('Error:', error);
+      });
+    },
+
+   
+
+
+
+    editCustomer(){
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+console.log(id);
+
+
+this.customer.id = id;
+
+
+let config = {
+method: 'get',
+maxBodyLength: Infinity,
+url: `https://demo.pearlreynolds.xyz/billing/rest/clients?id=${id}`,
+headers: { 
+'X-API-KEY': 'ed4876d901b3f0a41e9de1e7', 
+headers: {'Content-Type':'application/x-www-form-urlencoded', 
+}
+},
+};
+
+axios.request(config)
+.then((response) => {
+console.log(JSON.stringify(response.data));
+
+        this.customers = response.data; // Assuming response.data is an array of categories
+console.log('thiss'+ this.customers);
+ 
+
+const nameParts = this.customers['name'].split(" "); // Split the name by 'mr'
+
+
+if(nameParts.length == '2'){
+  this.customer.name = nameParts[1] ;
+  this.customer.optradio =nameParts[0];
+
+
+}
+else{
+  this.customer.name =this.customers['name'];
+  this.customer.optradio =this.customers['optradio'];
+
+}
+console.log(nameParts);
+this.customer.name_s = this.customers['name_s'];
+this.customer.region_s = this.customers['region_s'];
+this.customer.phone_s = this.customers['phone_s'];
+this.customer.country_s = this.customers['country_s'];
+this.customer.door_no = this.customers['door_no'];
+this.customer.address = this.customers['address'];
+this.customer.area = this.customers['area'];
+this.customer.category = this.customers['gid'];
+this.customer.company = this.customers['company'];
+this.customer.phone = this.customers['phone'];
+this.customer.sameAsResidence = this.customers['sameAsResidence'];
+this.customer.discount_c = this.customers['discount_c'];
+this.customer.email = this.customers['email'];
+this.customer.email_s = this.customers['email_s'];
+
+this.customer.gender = this.customers['custom1'];
+this.customer.country = this.customers['country'];
+this.customer.region = this.customers['region'];
+this.customer.city = this.customers['city'];
+this.customer.group = this.customers['group'];
+this.customer.postbox = this.customers['postbox'];
+this.customer.door_no_s = this.customers['door_no_s'];
+this.customer.address_s = this.customers['address_s'];
+this.customer.area_s = this.customers['area_s'];
+this.customer.city_s = this.customers['city_s'];
+this.customer.postbox_s = this.customers['postbox_s'];
+this.customer.door_no_s = this.customers['door_no_s'];
+this.customer.qualification = this.customers['qualification'];
+this.customer.spouse = this.customers['spouse'];
+this.customer.city_s = this.customers['city_s'];
+
+
+})
+.catch(error => {
+       console.error('Error:', error);
+      }); 
+
+}
+
+  }
+  });
+</script>
+</div>
+  </body>
+</html>

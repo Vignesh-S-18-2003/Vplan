@@ -1,0 +1,86 @@
+body{
+    background-image: url(Background.jpg);
+    background-attachment: fixed;
+}
+
+header{
+    background-color: rgb(69, 1, 133);
+}
+
+.i-btn{
+    background-color: blueviolet;
+    color: white;
+}
+.i-btn:hover{
+    background-color: rgb(70, 42, 96);
+    color:white;
+}
+
+.input{
+    background-color: rgb(232, 207, 255);
+    border: 3px solid rgb(199, 172, 224);
+}
+.input:focus{
+    background-color: rgb(232, 207, 255);
+    border: 3px solid rgb(199, 172, 224);
+}
+.in-drop{
+    background-color: rgb(232, 207, 255);
+    border: 3px solid rgb(199, 172, 224);
+}
+.in-drop:focus{
+    background-color: rgb(232, 207, 255);
+    border: 3px solid rgb(199, 172, 224);
+}
+.in-drop option{
+    background-color: rgb(232, 207, 255);
+}
+.in-drop option:hover{
+    background-color: black;
+}
+.in-op{
+    color: white;
+}
+
+.card {
+    background-color:transparent; 
+
+    /* Box shadow for 3D effect and finishing touches */
+    box-shadow: 
+        rgba(204, 219, 232, 0.8) 8px 8px 6px 0px inset, 
+        rgba(192, 125, 255, 0.5) 8px 8px 6px 1px inset,
+        rgba(0, 0, 0, 0.5) 2px 2px 15px; /* Add outer shadow for depth */
+    padding: 15px;
+}
+
+.card-head{
+    padding-top: 25px;
+}
+
+.view-field{
+    box-shadow: 
+    rgba(204, 219, 232, 0.8) 8px 8px 6px 0px inset, 
+    rgba(192, 125, 255, 0.5) 8px 8px 6px 1px inset,
+    rgba(0, 0, 5, 0.5) 4px 2px 15px; 
+}
+
+.category{
+    padding: 25px;
+    box-shadow: 
+    rgba(204, 219, 232, 0.8) 8px 8px 6px 0px inset, 
+    rgba(192, 125, 255, 0.5) 8px 8px 6px 1px inset,
+    rgba(0, 0, 5, 0.5) 4px 2px 15px; 
+}
+
+.inrow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-left: 25px;
+    padding-bottom: 20px;
+}
+ @media all and (max-width:935px) {
+    .b-in{margin-bottom: 20px;}
+    
+ }

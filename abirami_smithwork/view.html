@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css" />
+    <link rel="stylesheet" href="style.css">
+
+    <title>Abirami crm</title>
+    
+  </head>
+  <style>
+    .sort-asc::after {
+      content: '\25b2';
+      margin-left: 5px;
+    }
+  
+    .sort-desc::after {
+      content: '\25bc';
+      margin-left: 5px;
+    }
+  </style>
+  
+<header class="py-3 mb-4 shadow">
+    <div class="container-fluid align-items-center d-flex">
+        <div class="flex-shrink-1">
+            <a href="#" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none">
+                <i class="bi bi-bootstrap fs-2 text-dark"></i>
+            </a>
+        </div>
+        <div class="flex-grow-1 d-flex align-items-center">
+            <div class="w-100 me-3">
+                <h3 class="text-center text-3xl font-bold text-light"> Abirami Communication Software</h3>
+            </div>
+            <div class="flex-shrink-0 dropdown">
+                <a href="#" class="d-flex link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://via.placeholder.com/28?text=!" alt="user" width="32" height="32" class="rounded-circle">
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="p-3 border-0 main-content" id="app">
+
+  <div class="row flex-grow-sm-1 flex-grow-0">
+    <nav class="text-blue-500 p-4 flex justify-between">
+     
+              <div class="col">
+                
+                  <!-- <h5 class="text-center mb-2 text-red-600" style="font-weight: bolder; font-size: 20px; "></h5> -->
+                  <div class="mt-2">
+                    <div class="text-light rounded-3 mb-3 p-3 view-field">
+                      <div class="mt-3 mb-3">
+                          <div class="row">
+                              <!-- Left Side - General Fields -->
+                              <div class="col-lg-12">
+                                  <h3 class="text-lg font-bold ml-3" style="margin-bottom: 20px;">General Fields</h3>
+                                  <div class="form-check d-flex flex-wrap col-10 text-left ml-3 text-lg mb-3">
+                                      <div class="col-md-2 form-check mr-3 mb-2">
+                                          <input class="form-check-input" type="checkbox" value="0" v-model="showFields.name" id="showNameCheckbox">
+                                          <label class="form-check-label" for="showNameCheckbox">Given Name</label>
+                                      </div>
+                                      <div class="col-md-2 form-check mr-3 mb-2">
+                                          <input class="form-check-input" type="checkbox" value="0" v-model="showFields.name_s" id="showname_sCheckbox">
+                                          <label class="form-check-label" for="showname_sCheckbox">Initials/Last Name</label>
+                                      </div>
+                                      <div class="col-md-2 form-check mr-3 mb-2">
+                                          <input class="form-check-input" type="checkbox" value="" v-model="showFields.country" id="shownationalCheckbox">
+                                          <label class="form-check-label" for="shownationalCheckbox">Country</label>
+                                      </div>
+                                      <div class="col-md-2 form-check mr-3 mb-2">
+                                          <input class="form-check-input" type="checkbox" value="" v-model="showFields.phone_s" id="showphone_sCheckbox">
+                                          <label class="form-check-label" for="showphone_sCheckbox">Whatsapp No</label>
+                                      </div>
+                                      <div class="col-md-2 form-check mr-3 mb-2">
+                                          <input class="form-check-input" type="checkbox" value="0" v-model="showFields.custom1" id="showGenderCheckbox">
+                                          <label class="form-check-label" for="showGenderCheckbox">Gender</label>
+                                      </div>
+                                      <div class="col-md-2 form-check mr-3 mb-2">
+                                          <input class="form-check-input" type="checkbox" value="" v-model="showFields.region_s" id="showregion_sCheckbox">
+                                          <label class="form-check-label" for="showregion_sCheckbox">Notes</label>
+                                      </div>
+                                      <div class="col-md-2 form-check mr-3 mb-2">
+                                          <input class="form-check-input" type="checkbox" value="" v-model="showFields.discount_c" id="showdiscount_cCheckbox">
+                                          <label class="form-check-label" for="showdiscount_cCheckbox">Date of Birth</label>
+                                      </div>
+                                      <div class="col-md-2 form-check mr-3 mb-2">
+                                          <input class="form-check-input" type="checkbox" value="" v-model="showFields.region" id="showregionregion">
+                                          <label class="form-check-label" for="showregionregion">Occupation</label>
+                                      </div>
+                                      <div class="col-md-2 form-check mr-3 mb-2">
+                                          <input class="form-check-input" type="checkbox" value="" v-model="showFields.qualification" id="showqualificationCheckbox">
+                                          <label class="form-check-label" for="showqualificationCheckbox">Qualification</label>
+                                      </div>
+                                      <div class="col-md-2 form-check mr-3 mb-2">
+                                          <input class="form-check-input" type="checkbox" value="" v-model="showFields.spouse" id="showspouseCheckbox">
+                                          <label class="form-check-label" for="showspouseCheckbox">Spouse</label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+              
+                      <div class="mb-2 rounded-3 w-full text-lg">
+                          <div class="form-check form-check-inline ml-2">
+                              <input class="form-check-input" type="checkbox" value="0" v-model="showFields.residence" id="showresidenceCheckbox">
+                              <label class="form-check-label text-lg font-bold" for="showresidenceCheckbox" style="margin-bottom: 20px;">Residence</label>
+                          </div>
+                          <div class="row ml-3">
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.email" id="showemailCheckbox">
+                                      <label class="form-check-label" for="showemailCheckbox">Personal-Email</label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.door_no" id="showdoor_noCheckbox">
+                                      <label class="form-check-label" for="showdoor_noCheckbox">Door No/Building No Apartment No</label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.phone" id="showphoneCheckbox">
+                                      <label class="form-check-label" for="showphoneCheckbox">Mobile</label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.country_s" id="showcountry_sCheckbox">
+                                      <label class="form-check-label" for="showcountry_sCheckbox">Landline No</label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.address" id="showlane1Checkbox">
+                                      <label class="form-check-label" for="showlane1Checkbox">Street Details</label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.area" id="showareaCheckbox">
+                                      <label class="form-check-label" for="showareaCheckbox">Area/Locality Details</label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.city" id="showcityCheckbox">
+                                      <label class="form-check-label" for="showcityCheckbox">City</label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-4">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.postbox" id="showpostbox_noCheckbox">
+                                      <label class="form-check-label" for="showpostbox_noCheckbox">Postbox</label>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+              
+                      <div class="mb-2 mt-3 rounded-3 w-full text-lg">
+                          <div class="form-check form-check-inline ml-2">
+                              <input class="form-check-input" type="checkbox" value="0" v-model="showFields.commercial" id="showcommercialCheckbox">
+                              <label class="form-check-label text-lg font-bold" for="showcommercialCheckbox" style="margin-bottom: 20px;">
+                                  Commercial
+                              </label>
+                          </div>
+                          <div class="row ml-3">
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.company" id="showcompanyCheckbox">
+                                      <label class="form-check-label" for="showcompanyCheckbox">
+                                          Company Name
+                                      </label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.door_no_s" id="showdoor_no_sCheckbox">
+                                      <label class="form-check-label" for="showdoor_no_sCheckbox">
+                                          Official Apartment No
+                                      </label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.address_s" id="showaddress_sCheckbox">
+                                      <label class="form-check-label" for="showaddress_sCheckbox">
+                                          Official Street Details
+                                      </label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.area_s" id="showarea_sCheckbox">
+                                      <label class="form-check-label" for="showarea_sCheckbox">
+                                          Official Area/Locality Details
+                                      </label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.email_s" id="showemail_sCheckbox">
+                                      <label class="form-check-label" for="showemail_sCheckbox">
+                                          Official Email
+                                      </label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.city_s" id="showcity_sCheckbox">
+                                      <label class="form-check-label" for="showcity_sCheckbox">
+                                          Official City
+                                      </label>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-2">
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" v-model="showFields.postbox_s" id="showpostbox_sCheckbox">
+                                      <label class="form-check-label" for="showpostbox_sCheckbox">
+                                          Official Postbox
+                                      </label>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                
+                  
+                   </div>
+                  
+                  
+                 
+                 
+                   
+                
+                   <div class="form-group col-12 rounded-3 mt-3 category">
+                    <h5 class="mb-2 text-lg font-bold text-light text-center" style="margin-bottom: 25px; padding-bottom: 25px;">Category</h5>
+                    <div class="row ml-2 d-flex flex-wrap">
+                      <div v-for="category in categories" :key="category.id" class="form-check col-6 col-sm-4 col-md-3 col-lg-2">
+                        <input class="form-check-input" type="checkbox" :id="category.id" v-model="selectedCategories" :value="category.id">
+                        <label class="form-check-label text-light" :for="category.id">{{ category.title }}</label>
+                      </div>
+                    </div>
+                  </div>
+           </div>
+     </nav>
+
+        <main class="col overflow-auto h-100">
+            <div class=" border rounded-3 mt-3 p-3 overflow-scroll">
+                <div class="overlay" @click="showAddress"></div>
+
+                
+                    <div class="flex items-center justify-center space-x-4" role="group" aria-label="Large button group">
+                      <button type="button" id="addressButton" class="btn btn-outline-primary bg-blue-500 text-white" data-bs-toggle="offcanvas"
+                      href="#offcanvasExample" aria-controls="offcanvasExample"  style="display: none;" >  <i class="fas fa-filter"></i>Filter</button>
+                      <!-- <button type="button" id="addressButton" class="btn btn-outline-primary bg-blue-500 text-white" data-bs-toggle="offcanvas"
+                      aria-controls="offcanvasExample" @click="showAddress"><i class="fas fa-map-marker-alt"></i>Address</button> -->
+                     <button type="button" class="btn btn-outline-success" @click="sendWhatsApp" style="display: none;">
+                        <i class="fab fa-whatsapp"></i>WhatsApp
+                      </button>
+                      
+                    <button type="button" class="btn btn-outline-dark" @click="sendEmail"  style="display: none;">
+                      <i class="fas fa-envelope"></i>Email
+                    </button>
+                    
+                    <button type="button" class="btn btn-outline-warning"  style="display: none;"> <i class="fas fa-object-group"></i>EmailMerge</button>
+                    </div>
+                   
+                     
+                    
+                    <div class="mt-5">
+                      <button type="button" class="btn btn-outline-primary bg-blue-500 text-white" style="display: none;">import</button>
+                      <!-- <button type="button" class="btn btn-outline-success bg-green-800 text-white" @click="exportToExcel">
+                        <i class="fa fa-file-excel-o" style="font-size:28px;color:red"></i> Export
+                      </button>
+                      <button type="button" class="btn btn-outline-success bg-green-800 text-white" @click="promptForPages">
+                        <i class="fas fa-print" style="font-size:28px;"></i> Print
+                    </button> -->
+                    <div class="inrow">
+                      <div class="r-box">
+                          <div class="input-group mb-3">
+                              <span class="input-group-text i-btn" id="search-icon">
+                                  <i class="fa fa-search"></i>
+                              </span>
+                              <input v-model="searchText" type="text" class="form-control" placeholder="Search here" aria-label="Search" aria-describedby="search-icon">
+                          </div>
+                      </div>
+                      <div class="r-box">
+                          <a href="index.html" class="btn i-btn bg-blue-600 text-white ">
+                              <i class="fas fa-plus" style="font-size:28px;"></i> Add
+                          </a>
+                          <a href="category.html" class="btn i-btn bg-blue-600 text-white  ml-2">
+                              <i class="fas fa-plus" style="font-size:28px;"></i> New Category
+                          </a>
+                      </div>
+                  </div>
+                  
+                      <p v-for="(client, index) in selectedClient" :key="index">
+                        <div class="input-group mb-3 mt-3" style="display: none ;">
+                          <span class="input-group-text" id="search-icon">
+                            <i class="fa fa-search"></i>
+                          </span>
+                          <input
+                            v-model="searchText"
+                            type="text"
+                            class="form-control"
+                            placeholder="Search here"
+                            aria-label="Search"
+                            aria-describedby="search-icon"
+                          />
+                        </div>
+                        <template>
+
+                       <div class="ml-5">
+
+                          <table class="table table-striped table-bordered">
+
+                          <thead class="bg-gray-200">
+                            <tr>
+                              <th scope="col">
+                                <input type="checkbox" v-model="selectAll" @change="selectAllRows" />
+                              </th>
+                              <th scope="col">S.No
+
+                              </th>
+                              <th v-for="field in displayedFields" :key="field" scope="col" class="p-2">
+                                {{ customLabels[field] || field }}
+
+                              </th>
+                              
+                              <th v-if="showFields.name"  @click="sortByColumn('name')" scope="col" class="p-2">Given Name
+                                <span v-if="showFields.name && sortBy === 'name'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+
+                              <th v-if="showFields.name_s"  @click="sortByColumn('name_s')" scope="col" class="p-2">Initials/Last Name
+                                <span v-if="showFields.name_s && sortBy === 'name_s'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              
+
+                              <th v-if="showFields.phone"  @click="sortByColumn('phone')" scope="col" class="p-2">Mobile
+                                <span v-if="showFields.phone && sortBy === 'phone'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.discount_c"  @click="sortByColumn('discount_c')" scope="col">D.O.B
+                                <span v-if="showFields.discount_c && sortBy === 'discount_c'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.country"  @click="sortByColumn('country')" scope="col" class="p-2">Nationality
+                                <span v-if="showFields.country && sortBy === 'country'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              
+                              <th v-if="showFields.email"  @click="sortByColumn('email')" scope="col" class="p-2">Personal-Email
+                                <span v-if="showFields.email && sortBy === 'email'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.address"  @click="sortByColumn('address')" scope="col">Address
+                                <span v-if="showFields.address && sortBy === 'address'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.door_no" scope="col" @click="sortByColumn('door_no')">Apartname No
+                                <span v-if="showFields.door_no && sortBy === 'door_no'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                               <th v-if="showFields.spouse"  @click="sortByColumn('spouse')" scope="col">Spouse
+                                <span v-if="showFields.spouse && sortBy === 'spouse'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.qualification" scope="col" @click="sortByColumn('qualification')">Qualification
+                                <span v-if="showFields.qualification && sortBy === 'qualification'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+
+                              <th v-if="showFields.phone_s"  @click="sortByColumn('phone_s')" scope="col">whatsapp No
+                                <span v-if="showFields.phone_s && sortBy === 'phone_s'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.country_s"  @click="sortByColumn('country_s')" scope="col">Landline No
+                                <span v-if="showFields.country_s && sortBy === 'country_s'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.custom1"  @click="sortByColumn('custom1')"  scope="col">Gender
+                                <span v-if="showFields.custom1 && sortBy === 'custom1'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.company"  @click="sortByColumn('company')" scope="col">Company Name
+                                <span v-if="showFields.company && sortBy === 'company'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.region_s"  @click="sortByColumn('region_s')" scope="col">Notes
+                                <span v-if="showFields.region_s && sortBy === 'region_s'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+
+
+                              <th v-if="showFields.area"  @click="sortByColumn('area')" scope="col">Area/Locality
+                                <span v-if="showFields.area && sortBy === 'area'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.city"  @click="sortByColumn('city')" scope="col">City
+                                <span v-if="showFields.city && sortBy === 'city'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.postbox"  @click="sortByColumn('postbox')" scope="col">Pincode
+                                <span v-if="showFields.postbox && sortBy === 'postbox'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.region"  @click="sortByColumn('region')" scope="col">Occupation
+                                <span v-if="showFields.region && sortBy === 'region'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                             
+
+                              <th v-if="showFields.email_s"  @click="sortByColumn('email_s')" scope="col"> Official Email
+                                <span v-if="showFields.email_s && sortBy === 'email_s'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+
+                              <th v-if="showFields.address_s"  @click="sortByColumn('address_s')" scope="col">Official Address
+                                <span v-if="showFields.address_s && sortBy === 'address_s'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.door_no_s"  @click="sortByColumn('door_no_s')" scope="col"> Official Apartment No
+                                <span v-if="showFields.door_no_s && sortBy === 'door_no_s'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.area_s"  @click="sortByColumn('area_s')" scope="col"> Official Area/Locality
+                                <span v-if="showFields.area_s && sortBy === 'area_s'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.city_s"  @click="sortByColumn('city_s')" scope="col">Official City
+                                <span v-if="showFields.city_s && sortBy === 'city_s'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+
+                              <th v-if="showFields.postbox_s"  @click="sortByColumn('postbox_s')" scope="col"> Official Pincode
+                                <span v-if="showFields.postbox_s && sortBy === 'postbox_s'" :class="{ 'sort-asc': sortDirection === 'asc', 'sort-desc': sortDirection === 'desc' }"></span>
+
+                              </th>
+                              <th v-if="showFields.action"  scope="col"> Action</th>
+                            
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(client, index) in paginatedClients" :key="index">
+                              <td>
+                                <input type="checkbox" v-model="selectedRows" :value="client" />
+                              </td>
+                              <th scope="row">{{ (currentPage - 1) * itemsPerPage + index + 1 }}</th>
+                              <td v-for="field in displayedFields" :key="field" class="p-2">{{ client[field] }}</td>
+
+                              <td v-if="showFields.name" class="p-2">{{ client.name }}</td>
+                              <td v-if="showFields.name_s" class="p-2">{{ client.name_s }}</td>
+
+                              <td v-if="showFields.phone" class="p-2">{{ client.phone }}</td>
+                              <td v-if="showFields.discount_c" class="p-2">{{ client.discount_c }}</td>
+
+                              <td v-if="showFields.country" class="p-2">{{ client.country }}</td>
+                              <td v-if="showFields.email" class="p-2">{{ client.email }}</td>
+
+                              <td  v-if="showFields.address">{{ client.address }}</td>
+                              <td v-if="showFields.door_no" class="p-2">{{ client.door_no }}</td>
+                              <td v-if="showFields.spouse" class="p-2">{{ client.spouse }}</td>
+
+                              <td v-if="showFields.qualification" class="p-2">{{ client.qualification }}</td>
+
+                              <td v-if="showFields.phone_s" class="p-2">{{ client.phone_s }}</td>
+                              <td v-if="showFields.country_s" class="p-2">{{ client.country_s }}</td>
+                              <td v-if="showFields.custom1" class="p-2">{{ client.custom1}}</td>
+                              <td v-if="showFields.company" class="p-2">{{ client.company }}</td>
+                              <td v-if="showFields.area" class="p-2">{{ client.area }}</td>
+ 
+                              <td v-if="showFields.region_s"  class="p-2">{{ client.region_s }}</td>
+                              <td  v-if="showFields.region"  class="p-2">{{ client.region }}</td>
+
+
+
+
+                              <td v-if="showFields.city" class="p-2">{{ client.city }}</td>
+                              <td  v-if="showFields.postbox">{{ client.postbox }}</td>
+                              <td v-if="showFields.email_s" class="p-2">{{ client.email_s }}</td>
+
+
+                              <td v-if="showFields.area_s" class="p-2">{{ client.area_s }}</td>
+                              <td v-if="showFields.door_no_s" class="p-2">{{ client.door_no_s }}</td>
+
+                               <td v-if="showFields.address_s" class="p-2">{{ client.address_s }}</td>
+                              <td v-if="showFields.city_s" class="p-2">{{ client.city_s }}</td>
+                              <td  v-if="showFields.postbox_s">{{ client.postbox_s }}</td>
+                             <td><a v-if="showFields.action" :href="'editCustomer.html?id=' + client.id"><i class="fa-solid fa-pen-to-square" style="color: #cf0707;"></i></a></td>
+
+                            </tr>
+                          </tbody>
+                          
+                        </table>
+                        <nav>
+                          <ul class="pagination">
+                            <li class="page-item" :class="{ 'disabled': currentPage === 1 }">
+                              <a class="page-link" @click.prevent="changePage(currentPage - 1)" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                            </li>
+                            <li class="page-item" v-for="page in Math.ceil(filteredClients.length / itemsPerPage)" :key="page" :class="{ 'active': page === currentPage }">
+                              <a class="page-link" @click.prevent="changePage(page)" href="#">{{ page }}</a>
+                            </li>
+                            <li class="page-item" :class="{ 'disabled': currentPage === Math.ceil(filteredClients.length / itemsPerPage) }">
+                              <a class="page-link" @click.prevent="changePage(currentPage + 1)" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                        
+                      </div>
+                    </template>
+
+                
+                
+                </div>
+                
+            </div>
+            <div class="row mt-5 mx-auto rounded-3 pl-2 d-flex justify-content-between">
+              <div class="col-4 pr-3 ">
+                  <div class="input-group mb-3">
+                      <input v-model="prefixValue" type="text" class="form-control" placeholder="Prefix" aria-label="Recipient's username" aria-describedby="button-addon2">
+                      <button class="btn btn-outline-secondary i-btn" type="button" id="button-addon2" @click="filteredClients">Click</button>
+                  </div>
+              </div>
+          
+              <div class="col-4 " style="margin-bottom: 20px;">
+                  <div class="input-group mb-3 ">
+                      <input v-model="suffixValue" type="text" class="form-control" placeholder="Suffix" aria-label="Recipient's username" aria-describedby="button-addon2">
+                      <button class="btn btn-outline-secondary i-btn" type="button" id="button-addon2" @click="filteredClients">Click</button>
+                  </div>
+              </div>
+          
+              <div class="col-3 ml-3">
+
+                <button type="button" class="btn i-btn b-in  text-white" @click="exportToExcel">
+                  <i class="fa fa-file-excel-o" style="font-size:28px;"></i> Export
+                </button>
+                <button type="button" class="btn i-btn text-white " @click="promptForPages">
+                  <i class="fas fa-print" style="font-size:28px;"></i> Print
+              </button>
+              </div>
+              
+          </div>
+        </main>
+        </div>
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+<style>
+    [v-cloak] {
+    display: none;
+  }
+  
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- DataTables JS and jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <script src="https://media.twiliocdn.com/sdk/js/chat/releases/4.0.0/twilio-chat.min.js"></script>
+
+
+
+
+  <script>
+    
+    const accountSid = 'AC5e97c89b3962eb11da3b83b9c71057ad';
+    const authToken = '1cb8af02bb9f10c17103555616efe1f3';
+  
+    // Initialize Twilio client
+    const client = new Twilio.Chat.Client(accountSid, authToken);
+  // Load Twilio client
+  client.initialize()
+      .then(() => {
+        console.log('Twilio client initialized successfully');
+      })
+      .catch(error => {
+        console.error('Error initializing Twilio client', error);
+      });
+    // Function to send a WhatsApp message
+    function sendToWhatsApp(data) {
+      client.getChannelByUniqueName('whatsapp:9952163857')  
+        .then(channel => {
+          const messageBody = `Selected data:\n${JSON.stringify(data, null, 2)}`;
+          channel.sendMessage(messageBody);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  
+    
+  </script>
+  
+  
+
+  <script>
+    new Vue({
+    el: '#app',
+    data: {
+      searchText: '',
+      clients: [],  
+      currentPage: 1,
+    itemsPerPage: 10, // Adjust as needed
+    sortBy: '',
+  sortDirection: 'asc', // or 'desc' for descending
+      customLabels: {
+  name: 'Given Name',
+  name_s: 'Initials/Last Name',
+  residence: 'Residence',
+  commercial: 'Commercial',
+  phone: 'Mobile',
+  country: 'Nationality',
+  email: 'Personal Email',
+  phone_s: 'WhatsApp No',
+  country_s: 'Landline No',
+  company: 'Company Name',
+  region_s: 'Notes',
+  region: 'region',
+
+  door_no: 'Apartment No',
+  custom1: 'Gender',
+  address: 'Address',
+  area: 'Area/Locality',
+  city: 'City',
+  discount_c:'DateofBirth',
+  postbox: 'Pincode',
+  // occupation: 'Occupation',
+  email_s: 'Official Email',
+  address_s: 'Official Address',
+  door_no_s: 'Official Apartment No',
+  area_s: 'Official Area/Locality',
+  city_s: 'Official City',
+  postbox_s: 'Official Pincode',
+},
+
+      selectedClient: [],
+      isAddressButtonClicked: false,
+    
+
+      showFields: {
+        name: true,
+        name_s: false,
+        phone: true,
+        residence:false,
+      commercial:false,
+        country: false,
+        email: false,
+        phone_s: false,
+        country_s: false,
+        company: false,
+        region_s: false,
+        discount_c:false,
+        door_no: false,
+        custom1: false,
+        address: false,
+        area: false,
+        area_s: false,
+        address_s: false,
+        email_s: false,
+        postbox_s: false,
+        city_s: false,
+        door_no_s: false,
+        city: false,
+        postbox: false,
+        region: false,
+        action: true,
+        qualification:false,
+        spouse:false,
+        searchText: '',
+       
+
+      },
+      prefixValue: '',
+      suffixValue: '',
+      selectedRows: [],
+        selectAll: false,
+        totalPages: 1,
+        categories: [  // Add your categories here
+
+      // Add more categories as needed
+    ],
+   
+
+
+    selectedCategories: [],  // Initialize selectedCategories as an array
+
+    },
+
+    computed: {
+  filteredClients() {
+    let filteredData = this.clients;
+
+    // Step 1: Filter by searchText
+    const searchTerms = (this.searchText || '').toLowerCase().split(',').map(term => term.trim());
+    if (searchTerms.length > 0 && searchTerms.includes('male')) {
+      filteredData = filteredData.filter(client => {
+        const allFieldValues = Object.values(client).join(' ').toLowerCase();
+        return searchTerms.every(term => {
+          // Check for exact match
+          return Object.values(client).some(value => {
+            // Null check before calling toLowerCase()
+            return value !== null && value !== undefined && value.toLowerCase() === term;
+          });
+        });
+      });
+    }
+    else{
+   
+    if (searchTerms.length > 0) {
+      filteredData = filteredData.filter(client => {
+        const allFieldValues = Object.values(client).join(' ').toLowerCase();
+        return searchTerms.every(term => allFieldValues.includes(term));
+      });
+    }
+  }
+
+    if (this.sortBy) {
+      const sortOrder = this.sortDirection === 'asc' ? 1 : -1;
+      filteredData = filteredData.sort((a, b) => {
+        const aValue = a[this.sortBy];
+        const bValue = b[this.sortBy];
+        return aValue < bValue ? -sortOrder : aValue > bValue ? sortOrder : 0;
+      });
+    }
+    // Step 2: Filter by selectedCategories
+    filteredData = filteredData.filter(client =>
+      this.selectedCategories.length === 0 || this.selectedCategories.includes(client.gid)
+    );
+
+    // Step 3: Filter by dynamic filters
+    const dynamicFilters = (this.dynamicFilterValues || []).filter(filter => filter.value !== '');
+
+    dynamicFilters.forEach(filter => {
+      filteredData = filteredData.filter(client =>
+        client[filter.property] !== null &&
+        client[filter.property] !== undefined &&
+        client[filter.property].toLowerCase().includes(filter.value)
+      );
+    });
+
+    console.log('Filtered Data:', filteredData);
+    return filteredData;
+  },
+
+
+
+
+
+
+
+
+  displayedFields() {
+  // Determine which fields to display based on 'residence' checkbox
+
+
+
+ 
+
+  if (this.showFields.residence) {
+    const fieldsResidence = [
+      'name',
+      'name_s',
+      'phone',
+      'country',
+      'email',
+      'country_s',
+      'area',
+      'address',
+      'door_no',
+      'city',
+      'postbox'
+    ];
+
+    fieldsResidence.forEach(field => {
+      this.showFields[field] = true;
+    });
+
+    if (this.showFields.commercial) {
+      const fieldsCommercial = [
+        'name',
+        'name_s',
+        'phone',
+        'country',
+        'address_s',
+        'email_s',
+        'area_s',
+        'door_no_s',
+        'city_s',
+        'postbox_s',
+        'company'
+      ];
+
+      fieldsCommercial.forEach(field => {
+        this.showFields[field] = true;
+      });
+    } else {
+      const fieldsCommercial = [
+          'email_s',
+        'area_s',
+        'door_no_s',
+        'address_s',
+        'company',
+        'city_s',
+        'postbox_s'
+      ];
+
+      fieldsCommercial.forEach(field => {
+        this.showFields[field] = false;
+      });
+    }
+  } else if (this.showFields.commercial) {
+    const fieldsCommercial = [
+      'name',
+      'name_s',
+      'phone',
+      'country',
+      'address_s',
+      'email_s',
+      'area_s',
+      'door_no_s',
+      'city_s',
+      'postbox_s',
+      'company'
+    ];
+
+    fieldsCommercial.forEach(field => {
+      this.showFields[field] = true;
+    });
+
+    // Reset residence-related fields to false
+    const fieldsResidence = [
+      'country',
+      'email',
+      'area',
+      'address',
+      'country_s',
+      'door_no',
+      'city',
+      'postbox'
+    ];
+
+    fieldsResidence.forEach(field => {
+      this.showFields[field] = false;
+    });
+  } else {
+    // If neither 'residence' nor 'commercial' is checked, reset all fields to false
+    const fieldsReset = [
+      'country',
+      'email',
+      'area',
+      'address',
+      'door_no',
+      'city',
+      'postbox',
+      'country_s',
+      'address_s',
+      'email_s',
+      'area_s',
+      'door_no_s',
+      'city_s',
+      'postbox_s',
+      'company'
+    ];
+
+    fieldsReset.forEach(field => {
+      this.showFields[field] = false;
+    });
+  }
+  return [];
+},
+paginatedClients() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredClients.slice(startIndex, endIndex);
+  },
+
+  },
+  created() {
+    this.saveData1();
+    this.loadFromLocalStorage();
+
+  },
+  watch: {
+  prefixValue: 'saveToLocalStorage',
+  suffixValue: 'saveToLocalStorage',
+
+},
+    methods: {
+    load() {
+        const config = {
+          headers: { 'X-API-KEY': 'ed4876d901b3f0a41e9de1e7' }
+        };
+  
+        axios.get('https://demo.pearlreynolds.xyz/billing/rest/clients', config)
+          .then(response => {
+            // console.log('response:', response);
+            this.clients = (response.data).reverse();
+            
+          })
+          .catch(error => {
+            console.log('error:', error);
+          });
+      },
+      saveData1() {
+
+const config1 = {
+  headers: {'Content-Type':'application/x-www-form-urlencoded', 
+    'X-API-KEY': 'ed4876d901b3f0a41e9de1e7' }
+};
+
+axios.get('https://demo.pearlreynolds.xyz/billing/rest/customergroup', config1)
+.then(response => {
+// Update the customer category options
+console.log('Server Response1:', response.data);
+
+this.categories = response.data; // Assuming response.data is an array of categories
+
+// Assuming you have a property named 'customerCategories' in your data
+})
+.catch(error => {
+// Handle the error as needed
+console.error('Error:', error);
+});
+
+},
+saveToLocalStorage() {
+    localStorage.setItem('prefixValue', this.prefixValue);
+    localStorage.setItem('suffixValue', this.suffixValue);
+  },
+  loadFromLocalStorage() {
+    this.prefixValue = localStorage.getItem('prefixValue') || '';
+    this.suffixValue = localStorage.getItem('suffixValue') || '';
+  },
+      selectAllRows() {
+      if (this.selectAll) {
+        this.selectedRows = [...this.filteredClients];
+      } else {
+        this.selectedRows = [];
+      }
+    },
+      showAddress() {
+      if (!this.selectedClient && this.clients.length > 0) {
+        this.selectedClient = this.clients;
+        this.isAddressButtonClicked = true;
+      }
+    },
+      calculateColumnWidths(data) {
+        const columnWidths = Array(data[0].length).fill(0);
+  
+        data.forEach(row => {
+          if (Array.isArray(row)) {
+            row.forEach((cell, index) => {
+              const cellValue = cell !== null && cell !== undefined ? cell.toString() : '';
+              columnWidths[index] = Math.max(columnWidths[index], cellValue.length);
+            });
+          } else if (typeof row === 'object') {
+            Object.values(row).forEach((cell, index) => {
+              const cellValue = cell !== null && cell !== undefined ? cell.toString() : '';
+              columnWidths[index] = Math.max(columnWidths[index], cellValue.length);
+            });
+          }
+        });
+  
+        columnWidths.forEach((width, index) => {
+          
+          columnWidths[index] = width + 2; 
+        });
+  
+        return columnWidths;
+      },
+      exportToExcel() {
+  if (this.selectedRows.length > 0) {
+    // Add a title row
+    const titleRow = ['S.No', 'Communication Software Report'];
+
+    // Extract only the selected fields for the header row
+    const selectedFields = Object.keys(this.showFields).filter(field => this.showFields[field]);
+    const headerRow = ['S.No', ...selectedFields];
+
+    // Extract only the selected fields for the exported data
+    const exportedData = [titleRow, headerRow, ...this.selectedRows.map((client, index) => [
+      index + 1, // S.No
+      ...selectedFields.map(field => client[field] || ''),
+    ])];
+
+    // Create worksheet
+    const ws = XLSX.utils.json_to_sheet(exportedData, { skipHeader: true });
+
+    // Calculate column widths
+    const columnWidths = this.calculateColumnWidths(exportedData);
+
+    // Set the title cell to span all columns
+    ws['A1'] = { t: 's', v: titleRow[1], s: { font: { sz: 14, bold: true }, alignment: { horizontal: 'center' } } };
+    ws['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: columnWidths.length - 1 } }];
+
+    // Adjust column widths manually if needed
+    ws['!cols'] = [
+      { wch: 5 },  // Width of the S.No column
+      ...columnWidths,
+    ];
+
+    // Set bold and alignment for each cell in the header row
+    headerRow.forEach((header, index) => {
+      const colRef = XLSX.utils.encode_col(index);
+      const cellRef = `${colRef}2`;
+      const cell = ws[cellRef] || {};
+      ws[cellRef] = { ...cell, t: 's', v: header };
+      ws[cellRef].s = { ...cell.s, font: { bold: true }, alignment: { horizontal: 'center' } };
+    });
+
+    // Set row height for all rows (adjust the hpt and hpx values as needed)
+    const totalRows = exportedData.length;
+    ws['!rows'] = Array(totalRows).fill({ hpt: 15, hpx: 15 });
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    XLSX.writeFile(wb, 'report.xlsx');
+  } else {
+    alert("Please Select at least one row");
+  }
+},
+
+
+  
+
+
+sortByColumn(field) {
+    if (this.sortBy === field) {
+      // Toggle the sort direction if the same column is clicked
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      // Set the new field for sorting and default to ascending direction
+      this.sortBy = field;
+      this.sortDirection = 'asc';
+    }
+  },
+  sendEmail() {
+     
+      if (this.selectedRows.length > 0) {
+        
+        const subject = 'Selected Data from Your Application';
+        const body = `Selected data:\n${JSON.stringify(this.selectedRows, null, 2)}`;
+  
+        const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  
+        window.location.href = mailtoLink;
+      
+      } else {
+        alert("Please select at least one row before sending via email.");
+      }
+      
+    },
+    changePage(page) {
+    if (page >= 1 && page <= Math.ceil(this.filteredClients.length / this.itemsPerPage)) {
+      this.currentPage = page;
+    }
+  },
+    sendWhatsApp() {
+     const dataToSend = this.selectedRows;
+    //  sendToWhatsApp(dataToSend);
+    if (this.selectedRows.length > 0) {
+      const whatsappLink = 'https://web.whatsapp.com/';
+    // Open the WhatsApp link
+    window.location.href = whatsappLink;
+    } else {
+      alert("Please select at least one row before sending via whatsapp.");
+    }
+    
+    //  alert('Data sent to WhatsApp!');
+  },
+  promptForPages() {
+  const rows = 1;
+  const columns = prompt("Enter the number of columns per page:", "3");
+
+  if (rows !== null && columns !== null) {
+    const parsedRows = parseInt(rows, 10);
+    const parsedColumns = parseInt(columns, 10);
+
+    if (!isNaN(parsedRows) && parsedRows > 0 && !isNaN(parsedColumns) && parsedColumns > 0) {
+      this.rowsPerPage = parsedRows;
+      this.columnsPerPage = parsedColumns;
+
+      if (this.validatePrint()) {
+        this.print();
+      } else {
+        alert(`Content cannot fit with the selected number of rows and columns.`);
+      }
+    } else {
+      alert("Please enter valid numbers greater than 0.");
+    }
+  }
+},
+
+validatePrint() {
+  const totalRows = this.selectedRows.length;
+  const rowsPerPage = this.rowsPerPage;
+  const columnsPerPage = this.columnsPerPage;
+
+  return rowsPerPage >= 1 && rowsPerPage <= totalRows && columnsPerPage >= 1;
+},
+print() {
+  if (this.selectedRows.length > 0) {
+    const title = 'Communication Software Report';
+    const totalRows = this.selectedRows.length;
+
+    const selectedFields = Object.keys(this.showFields).filter(field => this.showFields[field]);
+
+    const rowsPerPage = totalRows; // Adjust to the total number of rows
+
+    const columnsPerPage = this.columnsPerPage;
+
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+    const prefixValue = localStorage.getItem('prefixValue') || '';
+    const suffixValue = localStorage.getItem('suffixValue') || '';
+    const fontFamily = prompt("Enter font family for alert:", "Arial, sans-serif");
+    $('#exampleModal').modal('show');
+
+
+    const printContent = `
+      <html>
+        <head>
+          <style>
+            body { font-family: ${fontFamily}; }
+            .page { page-break-before: always; }
+            .row { display: flex; }
+            .col { width: ${(100 / columnsPerPage).toFixed(2)}%; box-sizing: border-box; float: left; line-height: 1; }
+          </style>
+        </head>
+        <body>
+          ${Array.from({ length: totalPages }, (_, pageIndex) => {
+            const startIndex = pageIndex * rowsPerPage;
+            const endIndex = Math.min(startIndex + rowsPerPage, totalRows);
+
+            // Check if the current page has any data
+            const hasData = this.selectedRows.slice(startIndex, endIndex).some(client => {
+              return Array.from({ length: columnsPerPage }, (_, colIndex) => {
+                const dataIndex = this.selectedRows.indexOf(client) * columnsPerPage + colIndex;
+                const rowData = this.selectedRows[dataIndex];
+                return selectedFields.some(field => (rowData && rowData[field]) !== undefined);
+              }).some(Boolean);
+            });
+
+            // Only include the page if it has data
+            if (hasData) {
+              return `
+                <div class="page">
+                  ${Array.from({ length: rowsPerPage }, (_, rowIndex) => {
+                    const clientIndex = startIndex + rowIndex;
+                    if (clientIndex < endIndex) {
+                      const client = this.selectedRows[clientIndex];
+                      return `
+                        <div class="row">
+                          ${Array.from({ length: columnsPerPage }, (_, colIndex) => {
+                            const dataIndex = clientIndex * columnsPerPage + colIndex;
+                            const rowData = this.selectedRows[dataIndex];
+
+                            return `
+                              <div class="col">
+                                ${selectedFields.map(field => {
+                                  if (field === 'name' && rowData && (rowData[field] || rowData.name_s)) {
+                                    return `<p>${prefixValue}&nbsp;${(rowData && rowData[field]) || ''}&nbsp; ${(rowData && rowData.name_s) || ''} &nbsp;${suffixValue}</p>`;
+                                  } else if (rowData && rowData[field]) {
+                                    return `<p>${rowData[field]}</p>`;
+                                  } else {
+                                    return ''; // This will prevent rendering empty columns
+                                  }
+                                }).join('')}
+                              </div>
+                            `;
+                          }).join('')}
+                        </div><br>
+                      `;
+                    }
+                    return '';
+                  }).join('')}
+                </div>
+              `;
+            }
+            return '';
+          }).join('')}
+        </body>
+      </html>
+    `;
+
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+    iframeDocument.write(printContent);
+
+    setTimeout(() => {
+      iframeDocument.close();
+      iframe.contentWindow.print();
+      document.body.removeChild(iframe);
+    }, 200);
+  } else {
+    alert("Please select at least one row");
+  }
+}
+
+    },
+    mounted() {
+  this.load();
+
+  // Wait for the data to be loaded before initializing DataTables
+
+  
+},
+  });
+  
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  
+  
+  
+  
+  
+</div>
+  </body>
+  </html>

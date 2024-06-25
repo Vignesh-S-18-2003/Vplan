@@ -1,0 +1,237 @@
+<form @submit.prevent="saveData" class="form-container">
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <label for="optradio" class="form-label">Title</label>
+        <select class="form-control" id="optradio" name="optradio" v-model="customer.optradio">
+          <option value="" disabled class="in-op">select</option>
+          <option value="mr">Mr.</option>
+          <option value="ms">Ms.</option>
+          <option value="m/s">M/s</option>
+          <option value="mrs">Mrs.</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label for="name" class="form-label">Given Name *</label>
+        <input type="text" class="form-control" id="name" v-model="customer.name" ref="nameInput">
+      </div>
+
+      <div class="col-md-2">
+        <label for="name_s" class="form-label">Initials/Last Name</label>
+        <input type="text" class="form-control" id="name_s" v-model="customer.name_s">
+      </div>
+
+      <div class="col-md-2">
+        <label for="gender" class="form-label">Gender</label>
+        <select class="form-control" id="gender" v-model="customer.gender">
+          <option value="" class="in-op">select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label for="phone" class="form-label">Mobile No *</label>
+        <input type="tel" class="form-control" id="phone" v-model="customer.phone" ref="phoneInput" pattern="[0-9]*" maxlength="10">
+      </div>
+
+      <div class="col-md-2">
+        <label for="phone_s" class="form-label">Whatsapp No</label>
+        <input type="tel" class="form-control" id="phone_s" v-model="customer.phone_s" pattern="[0-9]*" maxlength="10">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <label for="landline_no" class="form-label">Landline No</label>
+        <input type="tel" class="form-control" id="landline_no" v-model="customer.country_s" pattern="[0-9]*" maxlength="10">
+      </div>
+
+      <div class="col-md-2">
+        <label for="occupation" class="form-label">Occupation</label>
+        <input type="text" class="form-control" id="occupation" v-model="customer.region">
+      </div>
+
+      <div class="col-md-2">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-control" id="category" v-model="customer.category" ref="categoryInput">
+          <option value="0" disabled class="in-op">Select a Category</option>
+          <option v-for="category in customerCategories" :key="category.value" :value="category.id">{{ category.title }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label for="country" class="form-label">Nationality</label>
+        <select class="form-control" id="country" v-model="customer.country">
+          <option value="" disabled class="in-op">Select Nationality</option>
+          <option v-for="country in countries" :key="country.name.common" :value="country.name.common">
+            {{ country.name.common }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label for="dateofbirth" class="form-label">D.O.B</label>
+        <input type="date" class="form-control" id="dateofbirth" v-model="customer.discount_c">
+      </div>
+
+      <div class="col-md-2">
+        <label for="company" class="form-label">Company Name *</label>
+        <input type="text" class="form-control" id="company" v-model="customer.company" ref="companyInput">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <label for="qualification" class="form-label">Qualification</label>
+        <input type="text" class="form-control" id="qualification" v-model="customer.qualification">
+      </div>
+
+      <div class="col-md-2">
+        <label for="spouse" class="form-label">Spouse Name</label>
+        <input type="text" class="form-control" id="spouse" v-model="customer.spouse">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="card text-center">
+          <div class="card-head h3">Residence</div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="email" class="form-label">Personal E-Mail ID</label>
+              </div>
+              <div class="col-md-6">
+                <input type="email" class="form-control" id="email" v-model="customer.email">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="door_no" class="form-label">Door No / Building No/ Apartment Name</label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="door_no" v-model="customer.door_no">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="address" class="form-label">Street Details</label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="address" v-model="customer.address">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="area" class="form-label">Area / Locality Details</label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="area" v-model="customer.area">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="city" class="form-label">City</label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="city" v-model="customer.city">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="postbox" class="form-label">Postal</label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="postbox" v-model="customer.postbox">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card text-center">
+          <div class="card-head h3">Occupation's Location</div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="showcompanyCheckbox" v-model="customer.sameAsResidence" @change="handleSameAsResidence">
+                  <label class="form-check-label" for="showcompanyCheckbox">Same as Residence</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="email_s" class="form-label">Official E-Mail ID</label>
+              </div>
+              <div class="col-md-6">
+                <input type="email" class="form-control" id="email_s" v-model="customer.email_s">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="door_no_s" class="form-label">Door No / Building No/ Apartment Name</label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="door_no_s" v-model="customer.door_no_s">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="address_s" class="form-label">Street Details</label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="address_s" v-model="customer.address_s">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="area_s" class="form-label">Area / Locality Details</label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="area_s" v-model="customer.area_s">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="city_s" class="form-label">City</label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="city_s" v-model="customer.city_s">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="postbox_s" class="form-label">Postal</label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="postbox_s" v-model="customer.postbox_s">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-8">
+        <label for="company_address" class="form-label">Notes:</label>
+        <input type="text" class="form-control" id="company_address" v-model="customer.region_s">
+      </div>
+      <div class="col-md-4 d-flex justify-content-end align-items-center">
+        <button type="submit" class="btn btn-primary btn-lg" :disabled="isSaveButtonDisabled">Save</button>
+      </div>
+    </div>
